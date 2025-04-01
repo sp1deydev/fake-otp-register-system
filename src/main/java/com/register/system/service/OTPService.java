@@ -38,7 +38,6 @@ public class OTPService {
         OTP otp = optionalOtp.get();
 
         if (otp.getExp().isBefore(LocalDateTime.now())) {
-            otpRepository.delete(otp); // Xóa OTP đã hết hạn
             throw new RuntimeException("OTP is expired. Please send to request to get a new OTP");
         }
 
@@ -47,7 +46,7 @@ public class OTPService {
             otpRepository.save(otp);
 
             if (otp.getAttempts() == MAX_ATTEMPTS) {
-                throw new RuntimeException("You entered wrong OTP many times. Please send a request for a new OTP");
+                throw new RuntimeException("You entered wrong OTP many times. Your register is revoked");
             }
 
             throw new RuntimeException("OTP is not match. You have " + (MAX_ATTEMPTS - otp.getAttempts()) + " times left");
