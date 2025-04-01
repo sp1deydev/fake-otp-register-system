@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "otps")
 public class OTP {
@@ -27,8 +28,9 @@ public class OTP {
     Integer attempts;
 
     @Column(name = "daily_count")
-    String dailyCount;
+    Integer dailyCount;
 
     @Column(name = "exp")
     LocalDateTime exp;
+
 }
